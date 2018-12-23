@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.0)
+project(MVCamera)
+
+set(CMAKE_CXX_STANDARD 11)
+
+find_package(OpenCV 3.3.1 REQUIRED)
+
+include_directories(
+        ${PROJECT_SOURCE_DIR}/include
+        ${OpenCV_INCLUDE_DIR}
+)
+
+add_executable(main src/main.cpp)
+target_link_libraries(
+        main
+        ${OpenCV_LIBRARIES}
+        #${PROJECT_SOURCE_DIR}/lib/libMVSDK.so # x86 pc
+        ${PROJECT_SOURCE_DIR}/lib_arm/libMVSDK.so # arm 64
+)
+
+add_executable(test_MVCamera src/test_MVCamera.cpp src/MVCamera.cpp)
+target_link_libraries(
+        test_MVCamera
+        ${OpenCV_LIBRARIES}
+        #${PROJECT_SOURCE_DIR}/lib/libMVSDK.so # x86 pc
+        ${PROJECT_SOURCE_DIR}/lib_arm/libMVSDK.so # arm 64
+)
+
+add_executable(setwb src/setwb.cpp src/MVCamera.cpp)
+target_link_libraries(
+        setwb
+        ${OpenCV_LIBRARIES}
+        #${PROJECT_SOURCE_DIR}/lib/libMVSDK.so # x86 pc
+        ${PROJECT_SOURCE_DIR}/lib_arm/libMVSDK.so # arm 64
+)
+target_link_libraries(main ${OpenCV_LIBS} -lpthread)
