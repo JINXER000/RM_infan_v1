@@ -14,7 +14,7 @@ Serial::Serial(char *dev)
     if (-1 == fd)
     {
         perror("Can't Open Serial Port");
-        exit(0);
+        //exit(0);
     }
 }
 

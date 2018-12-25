@@ -377,8 +377,8 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 		vector<Rect> boards;
 		Mat frame_gray;
 		cvtColor(img, frame_gray, COLOR_BGR2GRAY);
-		detector.detectMultiScale(frame_gray, boards, 1.2, 3, 0 | CASCADE_SCALE_IMAGE, Size(30, 30), Size(300, 300));
-		//detector.detectMultiScale(frame_gray, boards, 1.2, 3);
+        //detector.detectMultiScale(frame_gray, boards, 1.2, 3, 0 | CASCADE_SCALE_IMAGE, Size(30, 30), Size(300, 300));
+        detector.detectMultiScale(frame_gray, boards, 1.2, 3);
 		//boards = color_filter(img, boards, color_flag);
 		if (boards.size() > 0)
 		{

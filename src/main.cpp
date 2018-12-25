@@ -123,7 +123,7 @@ int main()
     MarkSensor markSensor;
     long timeStamp[2];
     HaarD haarDetector;
-    bool ishaar=0;
+    bool ishaar=1;
     VideoSaver saver;
 
     bool auto_wb;
@@ -147,21 +147,19 @@ int main()
 else
 {
 
-    capture.open("../dbg_imgs/red-p.mov");
+    capture.open("../video/red-p.mov");
 }
         ///Load cascade
-    String cascade_name = "zgdcascade_1.xml";
+    String cascade_name = "../params/zgdcascade_1.xml";
     if (!haarDetector.detector.load(cascade_name))
     {
         printf("--(!)Error loading face cascade\n");
     };
-printf("fuck1");
+
     timeStamp[1] = getTickCount();
     while (true)
     {
         capture.read(srcImg);
-
-
 
 
         frameCnt++;
@@ -178,13 +176,13 @@ printf("fuck1");
         ///detect and track
         resize(srcImg, bgrImg, dist_size);
        // bgrImg=srcImg.clone();
-        printf("fuck0");
+
     if (!ishaar)
         isSuccess = markSensor.ProcessFrameLEDXYZ(bgrImg, X, Y, Z, led_type,X_bias,Y_bias);
     else
             isSuccess = haarDetector.Detect_track( bgrImg, X, Y, Z, led_type, X_bias, Y_bias);
 
-        if (isSuccess)
+        if (!isSuccess)
         {
             status=0;
             cout << "detected target" << endl;

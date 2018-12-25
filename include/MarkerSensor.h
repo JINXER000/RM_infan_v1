@@ -129,7 +129,7 @@ public:
 	bool Detect_track(const Mat & img, float & X, float & Y, float & Z, int &type, int &pix_x, int &pix_y);
 	//HaarD(String cascade_name= "zgdcascade_1.xml");
 	TemplateTracker tracker;
-	int status;
+        int status=0;
 	int frame_num = 0;
 	CascadeClassifier detector;
 	bool show_visualization=1;

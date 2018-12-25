@@ -120,7 +120,7 @@ int main()
 	MarkSensor markSensor;
 	long timeStamp[2];
 	HaarD haarDetector;
-    bool ishaar=0,issave=0;
+    bool ishaar=1,issave=0;
     VideoSaver saver;
 	///sdk
 	bool auto_wb;
