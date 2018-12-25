@@ -8,7 +8,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <stdio.h>
 #include "MarkerSensor.h"
-
+#include "videosaver.h"
 #include <thread>
 //#define _DBG1FRAME_
 #define TX2
@@ -120,7 +120,8 @@ int main()
 	MarkSensor markSensor;
 	long timeStamp[2];
 	HaarD haarDetector;
-	bool ishaar=0;
+    bool ishaar=0,issave=0;
+    VideoSaver saver;
 	///sdk
 	bool auto_wb;
   	double exp_time = 10000;
@@ -138,7 +139,7 @@ int main()
     MVCamera::SetLargeResolution(true);
 
 		///Load cascade
-	String cascade_name = "zgdcascade_1.xml";
+    String cascade_name = "../params/zgdcascade_1.xml";
 	if (!haarDetector.detector.load(cascade_name))
 	{
 		printf("--(!)Error loading face cascade\n");
@@ -164,7 +165,7 @@ int main()
 		///detect and track
 		resize(srcImg, bgrImg, dist_size);
        // bgrImg=srcImg.clone();
-	if (ishaar)
+    if (!ishaar)
 		isSuccess = markSensor.ProcessFrameLEDXYZ(bgrImg, X, Y, Z, led_type,X_bias,Y_bias);
 	else
         	isSuccess = haarDetector.Detect_track( bgrImg, X, Y, Z, led_type, X_bias, Y_bias);
@@ -191,13 +192,16 @@ int main()
 			{
 				break;
 			}
-			string frameCnt_s = num2str(frameCnt);
+
+            string frameCnt_s = num2str(frameCnt);
 			putText(MarkSensor::img_show, frameCnt_s, cv::Point(600, 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
 			string fpsString("FPS:");
 			string fps_string = num2str(fps);
 			fpsString += fps_string;
 			putText(MarkSensor::img_show, fpsString, cv::Point(5, 20), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
-			imshow("all markers", MarkSensor::img_show);
+            if(issave)
+                putText(MarkSensor::img_show, "recording", cv::Point(300, 450), cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 200, 255));
+            imshow("all markers", MarkSensor::img_show);
 
 
 		char key = waitKey(1);
@@ -246,7 +250,15 @@ int main()
 	  if (key == 'c') {
     ishaar=!ishaar;
     }
+      if(key=='r')
+          {
+          issave=!issave;
+          }
 		}
+        if(issave)
+        {
+        saver.write(MarkSensor::img_show);
+        }
 
 	}
   MVCamera::Stop();

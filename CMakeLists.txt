@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(MVCamera)
+set(CMAKE_BUILD_TYPE "Debug")
 SET(CMAKE_C_COMPILER g++)
 if(CMAKE_COMPILER_IS_GNUCXX)
   add_compile_options(-std=c++11)
