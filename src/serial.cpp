@@ -4,18 +4,32 @@
 
 #include "serial.h"
 #include <iostream>
+
+using namespace std;
+
 /**
  * @brief   构造函数，初始化文件句柄
  * @param   dev 类型 char*    串口号
  */
-Serial::Serial(char *dev)
+Serial::Serial()
 {
-    fd = open( dev, O_RDWR | O_NOCTTY );         //| O_NOCTTY | O_NDELAY
-    if (-1 == fd)
-    {
-        perror("Can't Open Serial Port");
-        //exit(0);
+
+    string usbStr[3] = {"/dev/ttyUSB0","/dev/ttyUSB1","/dev/ttyUSB2"};
+
+    for(int i=0;i<3;i++){
+        char *dev=(char *)usbStr[i].data();
+        fd = open( dev, O_RDWR | O_NOCTTY );         //| O_NOCTTY | O_NDELAY
+        if (-1 == fd)
+        {
+            perror("Can't Open Serial Port");
+            //exit(0);
+        }else
+        {
+           printf("open suceed at dev %d \n",i);
+            break;
+        }
     }
+
 }
 
 Serial::~Serial()

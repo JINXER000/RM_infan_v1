@@ -16,7 +16,7 @@ using namespace std;
 class Serial
 {
 public:
-    Serial(char *dev);
+    Serial();
     ~Serial();
     void delay(int sec);
     bool setPara(int speed = 115200, int databits = 8, int stopbits = 1, int parity = 'N');
@@ -31,5 +31,6 @@ private:
     int name_arr[14] = {115200,  19200,  9600,  4800,  2400,  1200,  300, 115200,
                         19200,  9600, 4800, 2400, 1200,  300, };
 };
+
 
 #endif

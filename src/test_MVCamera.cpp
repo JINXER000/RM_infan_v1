@@ -25,8 +25,7 @@ int status;
 //vector<int> CalculateXYPixel(Rect location);
 int messnum = 1;
 bool transmit_message=0;
-string dev = "/dev/ttyUSB0";
-Serial sel((char *)dev.data());
+Serial sel;
 unsigned char data_send_buf[8];
 ////--------------------------------------
 unsigned char Add_CRC(unsigned char InputBytes[], unsigned char data_lenth)

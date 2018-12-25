@@ -1,5 +1,5 @@
 //
-// Created by liming on 6/1/18.
+// Author: Yizhou chen
 //
 
 #include "MVCamera.h"
@@ -27,8 +27,7 @@ int camWay=1; // 0: MVcamera, 1: usb cam  2: vedio
 //vector<int> CalculateXYPixel(Rect location);
 int messnum = 0;
 bool transmit_message=0;
-string dev = "/dev/ttyUSB0";
-Serial sel((char *)dev.data());
+Serial sel;
 unsigned char data_send_buf[8];
 ////--------------------------------------
 unsigned char Add_CRC(unsigned char InputBytes[], unsigned char data_lenth)
