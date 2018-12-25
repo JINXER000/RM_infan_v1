@@ -1,4 +1,3 @@
-#pragma once 
 #ifndef MARKERSSENSOR_H
 #define MARKERSSENSOR_H
 #include <iostream>

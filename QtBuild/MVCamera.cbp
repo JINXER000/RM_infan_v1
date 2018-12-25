@@ -37,8 +37,8 @@
             <DistClean command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
-      <Target title="test_mv">
-         <Option output="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/test_mv" prefix_auto="0" extension_auto="0" />
+      <Target title="usb_main">
+         <Option output="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/usb_main" prefix_auto="0" extension_auto="0" />
          <Option working_dir="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild" />
          <Option object_output="./" />
          <Option type="1" />
@@ -56,14 +56,14 @@
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 test_mv" />
+            <Build command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 usb_main" />
             <CompileFile command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
-      <Target title="test_mv/fast">
-         <Option output="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/test_mv" prefix_auto="0" extension_auto="0" />
+      <Target title="usb_main/fast">
+         <Option output="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/usb_main" prefix_auto="0" extension_auto="0" />
          <Option working_dir="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild" />
          <Option object_output="./" />
          <Option type="1" />
@@ -81,30 +81,27 @@
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 test_mv/fast" />
+            <Build command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 usb_main/fast" />
             <CompileFile command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
             <Clean command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 clean" />
             <DistClean command="/usr/bin/make -f &quot;/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/QtBuild/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       </Build>
-      <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/src/MVCamera.cpp">
-         <Option target="test_mv"/>
-      </Unit>
       <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/src/MarkSensor.cpp">
-         <Option target="test_mv"/>
+         <Option target="usb_main"/>
       </Unit>
       <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/src/MarkerParams.cpp">
-         <Option target="test_mv"/>
+         <Option target="usb_main"/>
+      </Unit>
+      <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/src/main.cpp">
+         <Option target="usb_main"/>
       </Unit>
       <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/src/serial.cpp">
-         <Option target="test_mv"/>
+         <Option target="usb_main"/>
       </Unit>
       <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/src/templetetracking.cpp">
-         <Option target="test_mv"/>
-      </Unit>
-      <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/src/test_MVCamera.cpp">
-         <Option target="test_mv"/>
+         <Option target="usb_main"/>
       </Unit>
       <Unit filename="/home/nvidia/yzchen_ws/cpp-proj/backups/RM_infan_v1/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />

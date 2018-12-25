@@ -111,44 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test_mv
+# Target rules for targets named usb_main
 
 # Build rule for target.
-test_mv: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_mv
-.PHONY : test_mv
+usb_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 usb_main
+.PHONY : usb_main
 
 # fast build rule for target.
-test_mv/fast:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/build
-.PHONY : test_mv/fast
-
-src/MVCamera.o: src/MVCamera.cpp.o
-
-.PHONY : src/MVCamera.o
-
-# target to build an object file
-src/MVCamera.cpp.o:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MVCamera.cpp.o
-.PHONY : src/MVCamera.cpp.o
-
-src/MVCamera.i: src/MVCamera.cpp.i
-
-.PHONY : src/MVCamera.i
-
-# target to preprocess a source file
-src/MVCamera.cpp.i:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MVCamera.cpp.i
-.PHONY : src/MVCamera.cpp.i
-
-src/MVCamera.s: src/MVCamera.cpp.s
-
-.PHONY : src/MVCamera.s
-
-# target to generate assembly for a file
-src/MVCamera.cpp.s:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MVCamera.cpp.s
-.PHONY : src/MVCamera.cpp.s
+usb_main/fast:
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/build
+.PHONY : usb_main/fast
 
 src/MarkSensor.o: src/MarkSensor.cpp.o
 
@@ -156,7 +129,7 @@ src/MarkSensor.o: src/MarkSensor.cpp.o
 
 # target to build an object file
 src/MarkSensor.cpp.o:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MarkSensor.cpp.o
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/MarkSensor.cpp.o
 .PHONY : src/MarkSensor.cpp.o
 
 src/MarkSensor.i: src/MarkSensor.cpp.i
@@ -165,7 +138,7 @@ src/MarkSensor.i: src/MarkSensor.cpp.i
 
 # target to preprocess a source file
 src/MarkSensor.cpp.i:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MarkSensor.cpp.i
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/MarkSensor.cpp.i
 .PHONY : src/MarkSensor.cpp.i
 
 src/MarkSensor.s: src/MarkSensor.cpp.s
@@ -174,7 +147,7 @@ src/MarkSensor.s: src/MarkSensor.cpp.s
 
 # target to generate assembly for a file
 src/MarkSensor.cpp.s:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MarkSensor.cpp.s
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/MarkSensor.cpp.s
 .PHONY : src/MarkSensor.cpp.s
 
 src/MarkerParams.o: src/MarkerParams.cpp.o
@@ -183,7 +156,7 @@ src/MarkerParams.o: src/MarkerParams.cpp.o
 
 # target to build an object file
 src/MarkerParams.cpp.o:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MarkerParams.cpp.o
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/MarkerParams.cpp.o
 .PHONY : src/MarkerParams.cpp.o
 
 src/MarkerParams.i: src/MarkerParams.cpp.i
@@ -192,7 +165,7 @@ src/MarkerParams.i: src/MarkerParams.cpp.i
 
 # target to preprocess a source file
 src/MarkerParams.cpp.i:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MarkerParams.cpp.i
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/MarkerParams.cpp.i
 .PHONY : src/MarkerParams.cpp.i
 
 src/MarkerParams.s: src/MarkerParams.cpp.s
@@ -201,8 +174,35 @@ src/MarkerParams.s: src/MarkerParams.cpp.s
 
 # target to generate assembly for a file
 src/MarkerParams.cpp.s:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/MarkerParams.cpp.s
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/MarkerParams.cpp.s
 .PHONY : src/MarkerParams.cpp.s
+
+src/main.o: src/main.cpp.o
+
+.PHONY : src/main.o
+
+# target to build an object file
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
+
+src/main.i: src/main.cpp.i
+
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 src/serial.o: src/serial.cpp.o
 
@@ -210,7 +210,7 @@ src/serial.o: src/serial.cpp.o
 
 # target to build an object file
 src/serial.cpp.o:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/serial.cpp.o
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/serial.cpp.o
 .PHONY : src/serial.cpp.o
 
 src/serial.i: src/serial.cpp.i
@@ -219,7 +219,7 @@ src/serial.i: src/serial.cpp.i
 
 # target to preprocess a source file
 src/serial.cpp.i:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/serial.cpp.i
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/serial.cpp.i
 .PHONY : src/serial.cpp.i
 
 src/serial.s: src/serial.cpp.s
@@ -228,7 +228,7 @@ src/serial.s: src/serial.cpp.s
 
 # target to generate assembly for a file
 src/serial.cpp.s:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/serial.cpp.s
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/serial.cpp.s
 .PHONY : src/serial.cpp.s
 
 src/templetetracking.o: src/templetetracking.cpp.o
@@ -237,7 +237,7 @@ src/templetetracking.o: src/templetetracking.cpp.o
 
 # target to build an object file
 src/templetetracking.cpp.o:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/templetetracking.cpp.o
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/templetetracking.cpp.o
 .PHONY : src/templetetracking.cpp.o
 
 src/templetetracking.i: src/templetetracking.cpp.i
@@ -246,7 +246,7 @@ src/templetetracking.i: src/templetetracking.cpp.i
 
 # target to preprocess a source file
 src/templetetracking.cpp.i:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/templetetracking.cpp.i
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/templetetracking.cpp.i
 .PHONY : src/templetetracking.cpp.i
 
 src/templetetracking.s: src/templetetracking.cpp.s
@@ -255,35 +255,8 @@ src/templetetracking.s: src/templetetracking.cpp.s
 
 # target to generate assembly for a file
 src/templetetracking.cpp.s:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/templetetracking.cpp.s
+	$(MAKE) -f CMakeFiles/usb_main.dir/build.make CMakeFiles/usb_main.dir/src/templetetracking.cpp.s
 .PHONY : src/templetetracking.cpp.s
-
-src/test_MVCamera.o: src/test_MVCamera.cpp.o
-
-.PHONY : src/test_MVCamera.o
-
-# target to build an object file
-src/test_MVCamera.cpp.o:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/test_MVCamera.cpp.o
-.PHONY : src/test_MVCamera.cpp.o
-
-src/test_MVCamera.i: src/test_MVCamera.cpp.i
-
-.PHONY : src/test_MVCamera.i
-
-# target to preprocess a source file
-src/test_MVCamera.cpp.i:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/test_MVCamera.cpp.i
-.PHONY : src/test_MVCamera.cpp.i
-
-src/test_MVCamera.s: src/test_MVCamera.cpp.s
-
-.PHONY : src/test_MVCamera.s
-
-# target to generate assembly for a file
-src/test_MVCamera.cpp.s:
-	$(MAKE) -f CMakeFiles/test_mv.dir/build.make CMakeFiles/test_mv.dir/src/test_MVCamera.cpp.s
-.PHONY : src/test_MVCamera.cpp.s
 
 # Help Target
 help:
@@ -293,25 +266,22 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... test_mv"
-	@echo "... src/MVCamera.o"
-	@echo "... src/MVCamera.i"
-	@echo "... src/MVCamera.s"
+	@echo "... usb_main"
 	@echo "... src/MarkSensor.o"
 	@echo "... src/MarkSensor.i"
 	@echo "... src/MarkSensor.s"
 	@echo "... src/MarkerParams.o"
 	@echo "... src/MarkerParams.i"
 	@echo "... src/MarkerParams.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 	@echo "... src/serial.o"
 	@echo "... src/serial.i"
 	@echo "... src/serial.s"
 	@echo "... src/templetetracking.o"
 	@echo "... src/templetetracking.i"
 	@echo "... src/templetetracking.s"
-	@echo "... src/test_MVCamera.o"
-	@echo "... src/test_MVCamera.i"
-	@echo "... src/test_MVCamera.s"
 .PHONY : help
 
 

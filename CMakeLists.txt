@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 project(MVCamera)
-set(CMAKE_BUILD_TYPE "Debug")
+
 SET(CMAKE_C_COMPILER g++)
 if(CMAKE_COMPILER_IS_GNUCXX)
   add_compile_options(-std=c++11)
 message(STATUS "optional:-std=c++11")
 endif(CMAKE_COMPILER_IS_GNUCXX)
+
+set(CMAKE_BUILD_TYPE "Debug")
 
 find_package(OpenCV REQUIRED)
 
@@ -23,15 +25,23 @@ include_directories(
         ${PROJECT_SOURCE_DIR}/include
 
 )
+### MV CAMERA
+#add_executable(test_mv src/test_MVCamera.cpp src/MVCamera.cpp src/MarkSensor.cpp  src/MarkerParams.cpp src/serial.cpp  src/templetetracking.cpp)
+#target_link_libraries(
+#        test_mv
+#        ${OpenCV_LIBRARIES}
+#        ${PROJECT_SOURCE_DIR}/lib/arm64/libMVSDK.so
 
-add_executable(test_mv src/test_MVCamera.cpp src/MVCamera.cpp src/MarkSensor.cpp  src/MarkerParams.cpp src/serial.cpp  src/templetetracking.cpp)
+#        -lpthread
+#)
+### USB CAMERA
+add_executable(usb_main src/main.cpp src/MarkerParams.cpp src/MarkSensor.cpp  src/serial.cpp src/templetetracking.cpp)
 target_link_libraries(
-        test_mv
-        ${OpenCV_LIBRARIES}
-        ${PROJECT_SOURCE_DIR}/lib/arm64/libMVSDK.so 
+    usb_main
+    ${OpenCV_LIBS}
+    -lpthread
+    )
 
-        -lpthread
-)
 
 
 

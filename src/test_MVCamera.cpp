@@ -1,5 +1,5 @@
 //
-// Created by liming on 6/1/18.
+// Author: Yizhou chen
 //
 
 #include "MVCamera.h"
