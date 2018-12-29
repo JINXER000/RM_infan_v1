@@ -346,7 +346,7 @@ int MarkSensor::ProcessFrameLEDXYZ(const Mat &img, float &X, float &Y, float &Z,
 		type = 1;	// hero
 	}
 	depth = (real_L*focal_length) / (marker_width);
-	///Ê¹ÓÃ»¥²¹ÂË²¨
+	///Ê¹ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ë²ï¿½
 	if (old_depth > 0) {
 		printf("old_depth:%f new_depth:%f", old_depth, depth);
 		depth = 0.6f*depth + 0.4f*old_depth;    //TODO:Adjust the params
@@ -388,7 +388,7 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 				location = boards[0];
 			else
 			{
-				//Õâ¸ö·Ç¼«´óÖµÒÖÖÆNMSÊÇ»ùÓÚÃæ»ýareaµÄ
+				//ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½NMSï¿½Ç»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½areaï¿½ï¿½
 				int max_area = boards[0].width * boards[0].height;
 				int max_index = 0;
 				for (int i = 1; i < boards.size(); i++)
@@ -423,7 +423,7 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 		}
 		if (frame_num % 10 == 0)
 		{
-			//ÔÚÍ¼Æ¬ÖÜÎ§½øÐÐÑ°ÕÒ
+			//ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½
 			int factor = 3;
 			int newx = location.x + (1 - factor) * location.width / 2;
 			int newy = location.y + (1 - factor) * location.height / 2;
@@ -443,7 +443,7 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 			}
 			else
 			{
-				//boards = color_filter(img, boards, color_flag);//ÑÕÉ«ÂË²¨ÅÐ¶ÏµÐÎÒ
+				//boards = color_filter(img, boards, color_flag);//ï¿½ï¿½É«ï¿½Ë²ï¿½ï¿½Ð¶Ïµï¿½ï¿½ï¿½
 				location = Rect(boards[0].x + loc.x, boards[0].y + loc.y, boards[0].width, boards[0].height);
 				tracker.initTracking(img, location);
 			}
