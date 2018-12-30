@@ -335,6 +335,13 @@ int MarkSensor::ProcessFrameLEDXYZ(const Mat &img, float &X, float &Y, float &Z,
 			return -1;
 		}
 	}
+
+
+	///update pix position
+	target = (marker.LEDs[0].center + marker.LEDs[1].center)*0.5f;
+	pix_x = target.x;
+	pix_y = target.y;
+	///update 3d position
 	float marker_width = (float)norm(marker.LEDs[0].center - marker.LEDs[1].center);
 	float marker_height = (marker.LEDs[0].width + marker.LEDs[1].width)*0.5f;
 	float focal_length = (MarkerParams::camera_fx + MarkerParams::camera_fy)*0.5f;
@@ -349,20 +356,19 @@ int MarkSensor::ProcessFrameLEDXYZ(const Mat &img, float &X, float &Y, float &Z,
 	///ʹ�û����˲�
 	if (old_depth > 0) {
 		printf("old_depth:%f new_depth:%f", old_depth, depth);
-		depth = 0.6f*depth + 0.4f*old_depth;    //TODO:Adjust the params
+		depth = 0.6f*depth + 0.4f*old_depth;    //TODO: 1. Turn the params 2. Kalman filter
 		old_depth = depth;
 		printf(" filtered_depth:%f\n", depth);
 	}
 	else {
 		old_depth = depth;
 	}
-	/// update 2d position
-	target = (marker.LEDs[0].center + marker.LEDs[1].center)*0.5f;
+
+
 	Z = depth;
 	X = (target.x - MarkerParams::camera_cx) / MarkerParams::camera_fx*Z;
 	Y = (target.y - MarkerParams::camera_cy) / MarkerParams::camera_fy*Z;
-	pix_x = target.x;
-	pix_y = target.y;
+
 	printf("Get target: %f %f %f type: %d\n", X, Y, Z, type);
 		return 0;
 }
@@ -448,8 +454,10 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 				tracker.initTracking(img, location);
 			}
 		}
+		pix_x=location.x+location.width*0.5;
+		pix_y=location.y+location.height*0.5;
 
-
+		 if (MarkerParams::ifShow) 
 			rectangle(MarkSensor::img_show, location, Scalar(0, 128, 255), 2);
 
 	}

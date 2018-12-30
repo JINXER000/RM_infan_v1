@@ -81,7 +81,7 @@ void sel_send() {
         for (int i = 0; i < 8; i++)
           buff[i] = data_send_buf[i];
         sel.writeData(buff, 8);
-
+          cout << "     X_bias:  " << X_bias << "   Y_bias:    " << Y_bias<< endl;
       } else {
         char buff[8];
         messnum++;
@@ -100,7 +100,7 @@ void sel_send() {
     this_thread::sleep_for(chrono::milliseconds(1));
   }
 }
-int main() {
+int frame_process() {
 
   Mat srcImg, bgrImg;
   bool isSuccess = 0;
@@ -165,10 +165,9 @@ int main() {
     if (!isSuccess) {
       status = 0;
       cout << "detected target" << endl;
-      // X_bias = pix_x - 320;
-      // Y_bias = pix_y - 240;
-      //	cout << "     X_bias:  " << X_bias << "   Y_bias:    " << Y_bias
-      //<< endl;
+      X_bias = pix_x - 320;
+      Y_bias = pix_y - 240;
+
     } else {
       status = 1;
       cout << "detected failed" << endl;
@@ -231,4 +230,19 @@ int main() {
   }
 
   return 0;
+}
+
+int main()
+{
+#ifdef TX2
+
+	//set param of sel
+
+	sel.setPara();
+#endif 
+	thread th1(&frame_process);
+	thread th2(&sel_send);
+	th2.join();
+	th1.join();
+
 }
