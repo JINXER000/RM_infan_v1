@@ -122,7 +122,7 @@ int frame_process() {
 
     capture.open(capIdx);
     if (!capture.isOpened()) {
-      cout << "Loading error!\n";
+      cout << "cap get error!\n";
 
       abort();
     }

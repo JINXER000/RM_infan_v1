@@ -112,7 +112,9 @@ public :
 	int paraDistance(RotRect &LED1, RotRect &LED2);
 	string num2str(double i);
 	int dbg_save(const Mat &img);
+	int MarkSensor::Kalman();
 
+	int MarkSensor::GammaCorrect();
 
 	SensorStatus status= STATUS_DETECTING;
 	Marker marker;

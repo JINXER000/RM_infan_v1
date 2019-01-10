@@ -463,3 +463,12 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 	}
 	return 0;
 }
+int MarkSensor::Kalman()
+{
+	return 0;
+}
+
+int MarkSensor::GammaCorrect()
+{
+	return 0;
+}
