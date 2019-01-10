@@ -385,7 +385,7 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 		cvtColor(img, frame_gray, COLOR_BGR2GRAY);
         //detector.detectMultiScale(frame_gray, boards, 1.2, 3, 0 | CASCADE_SCALE_IMAGE, Size(30, 30), Size(300, 300));
         detector.detectMultiScale(frame_gray, boards, 1.2, 3);
-		//boards = color_filter(img, boards, color_flag);
+		boards = color_filter(img, boards, color_flag);
 		if (boards.size() > 0)
 		{
 			cout << "[debug] " << frame_num << ":" << " Detection find " << boards.size() << " objects" << endl;
@@ -449,7 +449,7 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 			}
 			else
 			{
-				//boards = color_filter(img, boards, color_flag);//��ɫ�˲��жϵ���
+				boards = color_filter(img, boards, color_flag);//��ɫ�˲��жϵ���
 				location = Rect(boards[0].x + loc.x, boards[0].y + loc.y, boards[0].width, boards[0].height);
 				tracker.initTracking(img, location);
 			}
@@ -463,6 +463,49 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 	}
 	return 0;
 }
+/// judge if the armor is enemy
+bool judge_color(Mat src) 
+{
+    int blue_count = 0;
+    int red_count = 0;
+    for(int i = 0; i < src.rows; i++)
+    {
+	for(int j = 0; j < src.cols; j++)
+	{
+	    if( src.at<cv::Vec3b>(i, j)[0] > 17 && src.at<cv::Vec3b>(i, j)[0] < 50 &&
+		src.at<cv::Vec3b>(i, j)[1] > 15 && src.at<cv::Vec3b>(i, j)[1] < 56 &&
+		src.at<cv::Vec3b>(i, j)[2] > 100 && src.at<cv::Vec3b>(i, j)[2] < 250 )
+		red_count++;
+	    else if( 
+		src.at<cv::Vec3b>(i, j)[0] > 86 && src.at<cv::Vec3b>(i, j)[0] < 220 &&
+		src.at<cv::Vec3b>(i, j)[1] > 31 && src.at<cv::Vec3b>(i, j)[1] < 88 &&
+		src.at<cv::Vec3b>(i, j)[2] > 4 && src.at<cv::Vec3b>(i, j)[2] < 50 )
+		blue_count++;
+	}
+    }
+    cout << "[debug] " << "blue_count: " << blue_count << "\tred_count: " << red_count << endl;
+    if(red_count > blue_count)
+	return true;
+    else
+	return false;
+}
+/// filter all the boards detected by haar
+vector<Rect> color_filter(Mat frame, vector<Rect> boards, bool color_flag)	//color filter
+{
+    vector<Rect> results;
+    for(int i = 0; i < boards.size(); i++)
+    {
+	Mat roi = frame(boards[i]);
+	//imshow("roi", roi);
+	//waitKey(0);
+	bool flag = judge_color(roi);
+	if(flag == color_flag)
+	    results.push_back(boards[i]);
+    }
+    //cout << results.size() << endl;
+    return results;
+}
+
 int MarkSensor::Kalman()
 {
 	return 0;

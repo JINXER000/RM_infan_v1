@@ -1,20 +1,6 @@
-# MVCamera
+#release  2019.1.11
 
-#### Description
-1. MindVision Camera 
-2. 实现了曝光和分辨率
+-增加了颜色过滤。
+main.cpp中，HaarD.color_type定义敌方装甲颜色，并在使用haar 分类器时候适用。
 
-#### Software Architecture
-Static Class
-
-#### Installation
-
-1. mkdir build
-2. cd build
-3. cmake ..
-4. make -j
-
-#### Instructions
-
-1. "main" 是原始SDK中给的demo 
-2. "test_MVCamera" 是封装的接口，实现了曝光和分辨率
+如果编译有bug,及时通知陈奕州。 如果编译通过，则调整judge_color中通道值来选择地方颜色。

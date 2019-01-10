@@ -129,6 +129,9 @@ class HaarD
 public:
 
 	bool Detect_track(const Mat & img, float & X, float & Y, float & Z, int &type, int &pix_x, int &pix_y);
+	vector<Rect> color_filter(Mat frame, vector<Rect> boards, bool color_flag);	//color filter
+	bool judge_color(Mat src) ;
+
 	//HaarD(String cascade_name= "zgdcascade_1.xml");
 	TemplateTracker tracker;
         int status=0;
@@ -136,7 +139,7 @@ public:
 	CascadeClassifier detector;
 	bool show_visualization=1;
 	Rect location;
-
+	bool color_flag;  // false: blue   true : red
 
 private:
 };

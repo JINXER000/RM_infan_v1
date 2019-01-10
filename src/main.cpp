@@ -19,6 +19,8 @@
 #endif // TX2
 using namespace std;
 using namespace cv;
+
+HaarD::color_flag=1;    //  false: blue   true : red
 Size dist_size = Size(640, 480);
 int X_bias, Y_bias, pix_x, pix_y;
 int status;
