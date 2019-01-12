@@ -112,9 +112,9 @@ public :
 	int paraDistance(RotRect &LED1, RotRect &LED2);
 	string num2str(double i);
 	int dbg_save(const Mat &img);
-	int MarkSensor::Kalman();
+	int Kalman();
 
-	int MarkSensor::GammaCorrect();
+	int GammaCorrect();
 
 	SensorStatus status= STATUS_DETECTING;
 	Marker marker;
@@ -139,7 +139,7 @@ public:
 	CascadeClassifier detector;
 	bool show_visualization=1;
 	Rect location;
-	bool color_flag;  // false: blue   true : red
+	bool color_flag=1;  // false: blue   true : red
 
 private:
 };

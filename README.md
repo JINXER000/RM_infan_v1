@@ -2,6 +2,9 @@
 陈黑手远程调试，小qq和天力为debugger
 步骤：
 - 在Rm_infan1下打开terminal
+- git add .
+- git commit -m "wtf"
+- git reset --hard HEAD^
 - git pull
 - git checkout yuancheng
 

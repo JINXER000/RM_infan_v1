@@ -464,7 +464,7 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 	return 0;
 }
 /// judge if the armor is enemy
-bool judge_color(Mat src) 
+bool HaarD::judge_color(Mat src) 
 {
     int blue_count = 0;
     int red_count = 0;
@@ -490,7 +490,7 @@ bool judge_color(Mat src)
 	return false;
 }
 /// filter all the boards detected by haar
-vector<Rect> color_filter(Mat frame, vector<Rect> boards, bool color_flag)	//color filter
+vector<Rect> HaarD::color_filter(Mat frame, vector<Rect> boards, bool color_flag)	//color filter
 {
     vector<Rect> results;
     for(int i = 0; i < boards.size(); i++)
