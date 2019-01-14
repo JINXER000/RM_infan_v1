@@ -25,7 +25,7 @@ Size dist_size = Size(640, 480);
 int X_bias, Y_bias, pix_x, pix_y;
 int status;
 bool issave = 0;
-int camWay = 1; // 0: MVcamera, 1: usb cam  2: vedio
+int camWay = 2; // 0: MVcamera, 1: usb cam  2: vedio
 #ifdef TX2
 // vector<int> CalculateXYPixel(Rect location);
 int messnum = 0;

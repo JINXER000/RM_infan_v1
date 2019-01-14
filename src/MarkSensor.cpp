@@ -385,6 +385,7 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 		cvtColor(img, frame_gray, COLOR_BGR2GRAY);
         //detector.detectMultiScale(frame_gray, boards, 1.2, 3, 0 | CASCADE_SCALE_IMAGE, Size(30, 30), Size(300, 300));
         detector.detectMultiScale(frame_gray, boards, 1.2, 3);
+	if (boards.size() > 0)
 		boards = color_filter(img, boards, color_flag);
 		if (boards.size() > 0)
 		{
@@ -449,9 +450,12 @@ bool HaarD::Detect_track( const Mat & img, float & X, float & Y, float & Z, int 
 			}
 			else
 			{
-				boards = color_filter(img, boards, color_flag);//��ɫ�˲��жϵ���
+			  if (boards.size() > 0)
+				boards = color_filter(img, boards, color_flag);//��ɫ�˲��жϵ���.,,..
+				if (boards.size() > 0){
 				location = Rect(boards[0].x + loc.x, boards[0].y + loc.y, boards[0].width, boards[0].height);
 				tracker.initTracking(img, location);
+				}
 			}
 		}
 		pix_x=location.x+location.width*0.5;
@@ -496,6 +500,8 @@ vector<Rect> HaarD::color_filter(Mat frame, vector<Rect> boards, bool color_flag
     for(int i = 0; i < boards.size(); i++)
     {
 	Mat roi = frame(boards[i]);
+	if(roi.empty())
+	  continue;
 	//imshow("roi", roi);
 	//waitKey(0);
 	bool flag = judge_color(roi);
