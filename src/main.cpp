@@ -2,20 +2,22 @@
 // Author: Yizhou chen
 //
 
-#include "MVCamera.h"
+
 #include "MarkerSensor.h"
-#include "Timer.h"
+
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
-#include "videosaver.h"
+
 #include <stdio.h>
 #include <thread>
 
 //#define _DBG1FRAME_
-#define TX2
-#ifdef TX2
 
+#ifndef _WIN32
+#include "MVCamera.h"
 #include "serial.h"
+#include "Timer.h"
+#include "videosaver.h"
 #endif // TX2
 using namespace std;
 using namespace cv;
@@ -26,7 +28,7 @@ int X_bias, Y_bias, pix_x, pix_y;
 int status;
 bool issave = 0;
 int camWay = 2; // 0: MVcamera, 1: usb cam  2: vedio
-#ifdef TX2
+#ifndef _WIN32
 // vector<int> CalculateXYPixel(Rect location);
 int messnum = 0;
 bool transmit_message = 0;
@@ -71,7 +73,7 @@ string num2str(double i)
 }
 void sel_send() {
   while (1) {
-#ifdef TX2
+#ifndef _WIN32
     // transmit msg
     if (transmit_message == 1) {
       if (status == 1) {
@@ -112,13 +114,14 @@ int frame_process() {
   long timeStamp[2];
   HaarD haarDetector;
   bool ishaar = 1;
+#ifndef _WIN32
   VideoSaver saver;
 
   bool auto_wb;
   double exp_time = 10000;
   bool auto_exp = false;
   bool large_resolution = false;
-
+#endif
   VideoCapture capture;
   if (camWay == 1) {
 
@@ -153,6 +156,8 @@ int frame_process() {
     float fps = 1 / timeFly;
     timeStamp[1] = getTickCount();
     cout << "-----FPS------" << fps << endl;
+
+
     /// detect and track
     resize(srcImg, bgrImg, dist_size);
     // bgrImg=srcImg.clone();
@@ -225,10 +230,11 @@ int frame_process() {
         issave = !issave;
       }
     }
-
+#ifndef _WIN32
     if (issave) {
       saver.write(MarkSensor::img_show);
     }
+#endif
   }
 
   return 0;
@@ -236,7 +242,7 @@ int frame_process() {
 
 int main()
 {
-#ifdef TX2
+#ifndef _WIN32
 
 	//set param of sel
 
