@@ -4,10 +4,10 @@
 
 
 #include "MarkerSensor.h"
-
+#include "kalman.h"
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
-
+#include "opencv2/video/tracking.hpp"
 #include <stdio.h>
 #include <thread>
 
@@ -18,6 +18,7 @@
 #include "serial.h"
 #include "Timer.h"
 #include "videosaver.h"
+
 #endif // TX2
 using namespace std;
 using namespace cv;
@@ -25,7 +26,7 @@ using namespace cv;
 
 Size dist_size = Size(640, 480);
 int X_bias, Y_bias, pix_x, pix_y;
-int status;
+int status=0,lastStatus=0;
 bool issave = 0;
 int camWay = 2; // 0: MVcamera, 1: usb cam  2: vedio
 #ifndef _WIN32
@@ -113,7 +114,7 @@ int frame_process() {
   MarkSensor markSensor;
   long timeStamp[2];
   HaarD haarDetector;
-  bool ishaar = 1;
+  bool ishaar = 0;
 #ifndef _WIN32
   VideoSaver saver;
 
@@ -133,7 +134,7 @@ int frame_process() {
     }
   } else {
 
-    capture.open("../video/red-p.mov");
+    capture.open("../video/red-mark17.mov");
   }
   /// Load cascade
   String cascade_name = "../params/zgdcascade_1.xml";
@@ -141,6 +142,38 @@ int frame_process() {
     printf("--(!)Error loading face cascade\n");
   };
 
+  //init kalman filter
+
+  const int stateNum=4;                                      //state var(x,y,△x,△y)
+  const int measureNum=2;                                    //measure var(x,y)
+  float dt=1/100;
+  Eigen::MatrixXd A(stateNum, stateNum); // System dynamics matrix
+  Eigen::MatrixXd C(measureNum, stateNum); // Output matrix
+  Eigen::MatrixXd Q(stateNum, stateNum); // Process noise covariance
+  Eigen::MatrixXd R(measureNum, measureNum); // Measurement noise covariance
+  Eigen::MatrixXd P(stateNum, stateNum); // Estimate error covariance
+  A<<1,0,1,0,0,1,0,1,0,0,1,0,0,0,0,1;
+  C<<1,0,0,0,0,1,0,0;
+//   C.setIdentity();
+  Q.setIdentity();
+  Q=Q*1e-5;
+  R.setIdentity();
+  R=R*1e-1;
+  P.setIdentity();
+  std::cout << "A: \n" << A << std::endl;
+  std::cout << "C: \n" << C << std::endl;
+  std::cout << "Q: \n" << Q << std::endl;
+  std::cout << "R: \n" << R << std::endl;
+  std::cout << "P: \n" << P << std::endl;
+  Eigen::VectorXd xs0(stateNum); //unset 
+  Eigen::VectorXd ym(measureNum); 
+  Kalman_Filter kf(dt,A,C,Q,R,P);
+  
+  // opencv kalman filter
+
+//   cvKalmanFilter cvkf(0,0);
+  Point kfPoint2,kf_pt,finalPt;
+  
   timeStamp[1] = getTickCount();
   while (true) {
     capture.read(srcImg);
@@ -164,21 +197,52 @@ int frame_process() {
 
     if (!ishaar)
       isSuccess = markSensor.ProcessFrameLEDXYZ(bgrImg, X, Y, Z, led_type,
-                                                X_bias, Y_bias);
+                                                pix_x, pix_y);
     else
       isSuccess =
-          haarDetector.Detect_track(bgrImg, X, Y, Z, led_type, X_bias, Y_bias);
+          haarDetector.Detect_track(bgrImg, X, Y, Z, led_type, pix_x, pix_y);
 
-    if (!isSuccess) {
-      status = 0;
-      cout << "detected target" << endl;
-      X_bias = pix_x - 320;
-      Y_bias = pix_y - 240;
+
+	  
+  if (!isSuccess) {
+      status = 1;
+      cout << "detected target--------------" << endl;
+      X_bias = pix_x - bgrImg.cols/2;
+      Y_bias = pix_y - bgrImg.rows/2;
+
+	if(lastStatus==0)   //new target !
+      {
+        xs0<<X_bias,Y_bias,0,0;
+	kf.init(timeStamp[1],xs0);
+	
+      }else
+      {
+	ym<<X_bias,Y_bias;
+	kf.update(ym);
+      }
+      //2 kalman filter output
+      kf_pt=Point(kf.state()(0)+bgrImg.cols/2,kf.state()(1)+bgrImg.rows/2);
+
+      finalPt=Point(pix_x,pix_y);
+      // kalman filter actually lag, so add a pid to tune... aweful idea actually 
+      //refer to https://blog.csdn.net/m0_37857300/article/details/79117062
+      Point diff=finalPt-kf_pt;
+      if(norm(diff)>5)
+      {
+	finalPt=finalPt+1*diff;
+      }
 
     } else {
-      status = 1;
-      cout << "detected failed" << endl;
+      
+      status = 0;
+      cout << "detected failed!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+      
+//       kf.lostAndReset(50);
     }
+
+    
+    
+    lastStatus=status;
 
     /// write demo
     // VideoWriter writer;	//?????????????????��VideoWriter??????
@@ -204,6 +268,11 @@ int frame_process() {
       fpsString += fps_string;
       putText(MarkSensor::img_show, fpsString, cv::Point(5, 20),
               cv::FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 255));
+      
+
+
+      circle(MarkSensor::img_show, kf_pt, 5, Scalar(0, 0, 255),4); 
+      circle(MarkSensor::img_show, finalPt, 5, Scalar(255, 0, 0),4);
       imshow("all markers", MarkSensor::img_show);
 
       char key = waitKey(1);

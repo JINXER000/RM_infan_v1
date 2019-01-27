@@ -1,4 +1,5 @@
 #include "MarkerSensor.h"
+
 //#include "utils.h"
 Mat MarkSensor::img_show, MarkSensor::ROI_show;
 using namespace cv;
@@ -341,6 +342,8 @@ int MarkSensor::ProcessFrameLEDXYZ(const Mat &img, float &X, float &Y, float &Z,
 	target = (marker.LEDs[0].center + marker.LEDs[1].center)*0.5f;
 	pix_x = target.x;
 	pix_y = target.y;
+	
+	
 	///update 3d position
 	float marker_width = (float)norm(marker.LEDs[0].center - marker.LEDs[1].center);
 	float marker_height = (marker.LEDs[0].width + marker.LEDs[1].width)*0.5f;

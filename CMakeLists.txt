@@ -23,7 +23,7 @@ endif()
 
 include_directories(
         ${PROJECT_SOURCE_DIR}/include
-
+	 /usr/include/eigen3/
 )
 ### MV CAMERA
 #add_executable(test_mv src/test_MVCamera.cpp src/MVCamera.cpp src/MarkSensor.cpp  src/MarkerParams.cpp src/serial.cpp  src/templetetracking.cpp)
@@ -31,11 +31,10 @@ include_directories(
 #        test_mv
 #        ${OpenCV_LIBRARIES}
 #        ${PROJECT_SOURCE_DIR}/lib/arm64/libMVSDK.so
-
 #        -lpthread
 #)
 ### USB CAMERA
-add_executable(usb_main src/main.cpp src/MarkerParams.cpp src/MarkSensor.cpp  src/serial.cpp src/templetetracking.cpp)
+add_executable(usb_main src/main.cpp src/MarkerParams.cpp src/MarkSensor.cpp  src/serial.cpp src/templetetracking.cpp src/kalman.cpp)
 target_link_libraries(
     usb_main
     ${OpenCV_LIBS}
